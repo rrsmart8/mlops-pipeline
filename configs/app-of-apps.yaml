@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: ml-pipeline
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/rrsmart8/mlops-pipeline.git'  
+    path: pipelines/kubeflow
+    targetRevision: HEAD
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: kubeflow 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
