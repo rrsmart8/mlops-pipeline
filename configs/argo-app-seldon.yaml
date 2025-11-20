@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: seldon-core-v2
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # URL-ul final corect al depozitului Helm Seldon v2
+    repoURL: 'https://seldonio.github.io/seldon-helm-charts-v2' 
+    chart: 'seldon-core-v2'
+    targetRevision: '4.1.2' # Versiune stabilă
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: seldon-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
